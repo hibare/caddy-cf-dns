@@ -1,8 +1,8 @@
-FROM caddy:builder AS builder
+FROM caddy:2.4.6-builder-alpine AS builder
 
 RUN caddy-builder \
     github.com/caddy-dns/cloudflare
 
-FROM caddy:latest
+FROM caddy:2.4.6-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
