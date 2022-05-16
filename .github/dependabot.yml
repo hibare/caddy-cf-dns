@@ -6,6 +6,8 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
+    assignees:
+      - "hibare"
 
   # Maintain version for Docker
   - package-ecosystem: "docker"
@@ -13,3 +15,5 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "dev"
+    assignees:
+      - "hibare"
