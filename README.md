@@ -5,7 +5,7 @@
 [![Docker image size](https://img.shields.io/docker/image-size/tjibbevanderlaan/caddy-digitalocean-dns/latest)](https://hub.docker.com/r/tjibbevanderlaan/caddy-digitalocean-dns) 
 [![GitHub issues](https://img.shields.io/github/issues/tjibbevanderlaan/caddy-digitalocean-dns)](https://github.com/tjibbevanderlaan/caddy-digitalocean-dns/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/tjibbevanderlaan/caddy-digitalocean-dns)](https://github.com/tjibbevanderlaan/caddy-digitalocean-dns/pulls)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tjibbevanderlaan/caddy-digitalocean-dns)](https://github.com/hibare/caddy-cf-dns/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tjibbevanderlaan/caddy-digitalocean-dns)](https://github.com/tjibbevanderlaan/caddy-digitalocean-dns/releases)
 
 
 Custom docker image to include DigitalOcean plugin for successfully provisioning SSL certificates from Let's Encrypt.
