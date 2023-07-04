@@ -21,8 +21,8 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            hibare/caddy-cf-dns
-            ghcr.io/hibare/caddy-cf-dns
+            tjibbevanderlaan/caddy-digitalocean-dns
+            ghcr.io/tjibbevanderlaan/caddy-digitalocean-dns
           # generate Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}}
