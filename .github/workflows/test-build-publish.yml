@@ -1,4 +1,4 @@
-name: Publish docker image
+name: Test & Release Publish
 
 # When its time to do a release do a full cross platform build for all supported
 # architectures and push all of them to Docker Hub and GitHub Container Registry.
@@ -8,16 +8,25 @@ on:
     tags:
       - "*"
 
+  pull_request:
+    branches:
+      - "main"
+      - "dev"
+    paths-ignore:
+      - "**/README.md"
+      - "**/.github"
+
 jobs:
-  dockerhub-publish:
+  docker-build-test-publish:
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           # list of Docker images to use as base name for tags
           images: |
@@ -28,13 +37,13 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: all
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Cache Docker layers
         uses: actions/cache@v3
@@ -46,13 +55,14 @@ jobs:
 
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -60,7 +70,7 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64,linux/arm64

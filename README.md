@@ -16,3 +16,5 @@ docker build -t tjibbevanderlaan/caddy-digitalocean-dns .
 ```
 
 A pre-build docker image is available on [Docker Hub](https://hub.docker.com/r/tjibbevanderlaan/caddy-digitalocean-dns) for ready to use.
+
+Forked from [hibare/caddy-cf-dns](https://github.com/hibare/caddy-cf-dns)
