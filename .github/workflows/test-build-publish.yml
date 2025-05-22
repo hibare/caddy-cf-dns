@@ -74,3 +74,12 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test Built Docker Image
+        runs-on: ubuntu-latest
+        # This step runs regardless of event type, assuming the image is loaded by build-push-action for PRs
+        run: |
+          IMAGE_TO_TEST="hibare/caddy-cf-dns:${{ steps.set-metadata.outputs.version }}"
+          echo "Attempting to test image: $IMAGE_TO_TEST"
+          docker run --rm $IMAGE_TO_TEST caddy list-modules --versions | grep dns.providers.cloudflare
+          echo "Cloudflare DNS module found in $IMAGE_TO_TEST!"
